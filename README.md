@@ -51,12 +51,10 @@ make test
 ```sh
 make
 ```
-
 実行方法  
 ```sh
 ./phonebook
 ```
-
 コマンド  
 - ADD: 新しい連絡先を保存します   
 - SEARCH: 特定の連絡先を表示します
