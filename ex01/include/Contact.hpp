@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contact.hpp                                        :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmizuno <mmizuno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 21:52:01 by mmizuno           #+#    #+#             */
-/*   Updated: 2022/04/08 17:59:38 by mmizuno          ###   ########.fr       */
+/*   Updated: 2022/04/12 17:41:48 by mmizuno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ class Contact
         std::string _phoneNumber;
         std::string _darkestSecret;
         // [ method ]
-        void        _setField(std::string fieldName, std::string &fieldData);
+        bool        _isNumber(const std::string &fieldData);
+        void        _setField(std::string fieldName, std::string &fieldData, bool isNumber);
         void        _printField(std::string fieldName, std::string fieldData);
         void        _printIndexForSearch(int index);
         void        _printFieldForSearch(std::string fieldData);

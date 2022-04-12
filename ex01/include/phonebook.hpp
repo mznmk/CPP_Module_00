@@ -6,7 +6,7 @@
 /*   By: mmizuno <mmizuno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 07:58:59 by mmizuno           #+#    #+#             */
-/*   Updated: 2022/04/08 17:13:52 by mmizuno          ###   ########.fr       */
+/*   Updated: 2022/04/12 16:46:01 by mmizuno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@
 #include <string>
 #include <stdlib.h>
 
-#include "contacts.hpp"
+#include "Contacts.hpp"
 
 #endif

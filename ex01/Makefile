@@ -6,7 +6,7 @@
 #    By: mmizuno <mmizuno@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/25 16:58:27 by mmizuno           #+#    #+#              #
-#    Updated: 2022/04/08 16:51:29 by mmizuno          ###   ########.fr        #
+#    Updated: 2022/04/12 17:39:02 by mmizuno          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,19 @@ NAME				= phonebook
 
 INC_DIR				= ./include/
 SRC_DIR				= ./source/
-SRC_NAME			= contact.cpp \
-					  contacts.cpp \
+SRC_NAME			= Contact.cpp \
+					  Contacts.cpp \
 					  main.cpp
 SRCS				= $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS				= $(SRCS:.cpp=.o)					  
 
 CC					= clang++
 CFLAGS				= -Wall -Wextra -Werror -std=c++98
+ifdef CHECKLEAK
+	CFLAGS			+= -g -fsanitize=leak
+else ifdef CHECKADDRESS
+	CFLAGS			+= -g -fsanitize=address
+endif
 INCDIR				= -I $(INC_DIR)
 
 RM					= rm -f
@@ -51,23 +56,29 @@ CLR_WHITE			= \033[38;5;07m
 .cpp.o:
 					$(CC) $(CFLAGS) $(INCDIR) -c $< -o $(<:.cpp=.o)
 
-# --------------------------------- $(NAME) ---------------------------------- #
+# ------------------------------ $(NAME) / all ------------------------------- #
 
 $(NAME):			$(OBJS)
 					@echo "$(FNT_BOLD)$(CLR_CYAN)[ $(NAME) is compiling ... ]$(ESC_RESET)"
 					$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 					@echo "$(FNT_BOLD)$(CLR_YELLOW)[ $(NAME) successfully compiled !! ]$(ESC_RESET)"
 
-# ----------------------------------- all ------------------------------------ #
-
 all:				$(NAME)
 
-# ---------------------------------- clean ----------------------------------- #
+leak:
+					@echo "$(FNT_BOLD)$(CLR_GREEN)[ memory leak check mode : ON ]$(ESC_RESET)"
+					@make fclean
+					@make CHECKLEAK=1
+
+address:
+					@echo "$(FNT_BOLD)$(CLR_GREEN)[ memory address check mode : ON ]$(ESC_RESET)"
+					@make fclean
+					@make CHECKADDRESS=1
+
+# ------------------------------ clean / fclean ------------------------------ #
 
 clean:
 					$(RM) $(OBJS)
-
-# ---------------------------------- fclean ---------------------------------- #
 
 fclean:				clean
 					$(RM) $(NAME)
@@ -78,4 +89,4 @@ re:					fclean all
 
 # ---------------------------------- .PHONY ---------------------------------- #
 
-.PHONY:				all clean fclean re
+.PHONY:				all leak address clean fclean re

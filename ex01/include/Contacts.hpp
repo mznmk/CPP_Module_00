@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contacts.hpp                                       :+:      :+:    :+:   */
+/*   Contacts.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmizuno <mmizuno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 21:53:00 by mmizuno           #+#    #+#             */
-/*   Updated: 2022/04/08 17:59:46 by mmizuno          ###   ########.fr       */
+/*   Updated: 2022/04/12 17:41:50 by mmizuno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 // ================================ library ================================= //
 
-#include "../include/contact.hpp"
+#include "../include/Contact.hpp"
 
 // ================================= class ================================== //
 
@@ -35,20 +35,20 @@ class	Contacts
 {
     private:
         // [ variable ]
-        Contact     _contacts[DataCount];
-        int         _serialNumber;
+        Contact _contacts[DataCount];
+        int     _serialNumber;
         // [ method ]
-        void        _initContacts();
-        int         _searchWritableIndex();
-        void        _printContactsForSearch();
-        void        _readIndexForSearch();
+        void    _initContacts();
+        int     _searchWritableIndex();
+        void    _printContactsForSearch();
+        void    _readIndexForSearch();
     public:
         // [ constructor / destructor ]
         Contacts();
         ~Contacts();
         // [ method ]
-        void        addContact();
-        void        searchContact();
+        void    addContact();
+        void    searchContact();
 };
 
 #endif

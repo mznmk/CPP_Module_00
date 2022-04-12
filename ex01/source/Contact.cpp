@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contact.cpp                                        :+:      :+:    :+:   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmizuno <mmizuno@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 21:52:15 by mmizuno           #+#    #+#             */
-/*   Updated: 2022/04/08 19:11:08 by mmizuno          ###   ########.fr       */
+/*   Updated: 2022/04/12 17:43:06 by mmizuno          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/contact.hpp"
+#include "../include/Contact.hpp"
 
 // ======================== constructor / destructor ======================== //
 
@@ -30,7 +30,7 @@ Contact::~Contact()
 ** @param   none
 ** @return  none
 */
-void Contact::initFields()
+void    Contact::initFields()
 {
     _serialNumber = 0;
     _firstName = "";
@@ -43,12 +43,27 @@ void Contact::initFields()
 // ======================= public method (setFields) ======================== //
 
 /*!
+** @brief   string have only number ?
+** @param   fieldData   contact field data (by reference)
+** @return  none
+*/
+bool    Contact::_isNumber(const std::string &fieldData)
+{
+    for (size_t i = 0; i < fieldData.length(); i++) {
+        if (std::isdigit(fieldData[i]) == 0) {
+            return (false);
+        }
+    }
+    return (true);
+}
+
+/*!
 ** @brief   set field data
 ** @param   fieldName   contact field name (by value)
 ** @param   fieldData   contact field data (by reference)
 ** @return  none
 */
-void Contact::_setField(std::string fieldName, std::string &fieldData)
+void    Contact::_setField(std::string fieldName, std::string &fieldData, bool isNumber)
 {
     while (42)
     {
@@ -59,6 +74,12 @@ void Contact::_setField(std::string fieldName, std::string &fieldData)
         if (std::cin.fail()) {
             std::cout << FNT_BOLD CLR_RED << MSG_ERR_FAIL_READ_DATA << ESC_RESET << std::endl;
             exit(EXIT_FAILURE);
+        }
+        if (isNumber) {
+            if (_isNumber(fieldData))
+                break;
+            else
+                continue;
         }
         if (!fieldData.empty()) {
             break;
@@ -71,14 +92,14 @@ void Contact::_setField(std::string fieldName, std::string &fieldData)
 ** @param   serialNumber    serial number (unique number)
 ** @return  none
 */
-void Contact::setFields(int serialNumber)
+void    Contact::setFields(int serialNumber)
 {
     _serialNumber = serialNumber;
-    _setField("FIRST NAME", _firstName);
-    _setField("LAST NAME", _lastName);
-    _setField("NICK NAME", _nickname);
-    _setField("PHONE NUMBER", _phoneNumber);
-    _setField("DARKEST SECRET", _darkestSecret);
+    _setField("FIRST NAME", _firstName, false);
+    _setField("LAST NAME", _lastName, false);
+    _setField("NICK NAME", _nickname, false);
+    _setField("PHONE NUMBER", _phoneNumber, true);
+    _setField("DARKEST SECRET", _darkestSecret, false);
 }
 
 // ====================== public method (printFields) ======================= //
@@ -89,7 +110,7 @@ void Contact::setFields(int serialNumber)
 ** @param   fieldData   contact field data
 ** @return  none
 */
-void Contact::_printField(std::string fieldName, std::string fieldData)
+void    Contact::_printField(std::string fieldName, std::string fieldData)
 {
     std::cout << FNT_BOLD CLR_YELLOW << fieldName;
     std::cout << " : " << ESC_RESET;
@@ -102,7 +123,7 @@ void Contact::_printField(std::string fieldName, std::string fieldData)
 ** @param	none
 ** @return	none
 */
-void Contact::printFields()
+void    Contact::printFields()
 {
     _printField("FIRST NAME    ", _firstName);
     _printField("LAST NAME     ", _lastName);
@@ -118,7 +139,7 @@ void Contact::printFields()
 ** @param	index   contact field index (by reference)
 ** @return	none
 */
-void Contact::_printIndexForSearch(int index)
+void    Contact::_printIndexForSearch(int index)
 {
     std::cout << std::setw(10) << std::right << std::setfill(' ') << index;
 }
@@ -128,7 +149,7 @@ void Contact::_printIndexForSearch(int index)
 ** @param	fieldData   field data of contact
 ** @return	none
 */
-void Contact::_printFieldForSearch(std::string fieldData)
+void    Contact::_printFieldForSearch(std::string fieldData)
 {
     if (fieldData.size() <= 10) {
         std::cout << std::setw(10) << std::right << std::setfill(' ') << fieldData;
@@ -144,7 +165,7 @@ void Contact::_printFieldForSearch(std::string fieldData)
 ** @param	index	contact index number
 ** @return	none
 */
-void Contact::printFieldsForSearch(int index)
+void    Contact::printFieldsForSearch(int index)
 {
     // is data exist?
     if (!_serialNumber) {
@@ -164,7 +185,7 @@ void Contact::printFieldsForSearch(int index)
 
 // ============================= setter / getter ============================ //
 
-int Contact::getSerialNumber()
+int     Contact::getSerialNumber()
 {
     return (_serialNumber);
 }
